@@ -86,10 +86,10 @@ const scheduleCronstyle = (stockID)=>{
     var currentTime = new Date(Date.now())
     var currentHour = currentTime.getHours()
     console.log('currentHour',currentHour)
-    if(currentHour >= 15)
+    if(currentHour >= 15 || currentHour < 9)
     {
         obj.cancel()
-        console.log('下午三点后停止循环事件')
+        console.log('下午三点到早上九点不进行循环事件')
     }
 
 } 
