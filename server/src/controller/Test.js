@@ -6,8 +6,16 @@ var request = require('request');
 var iconv = require('iconv-lite');
 const schedule = require('node-schedule') //定时器
 const tmpUrl = 'http://hq.sinajs.cn/list='
-const Sequelize = require('sequelize')
 
+const config = require('../config/config')
+const Sequelize = require('sequelize')
+const sequelize = new Sequelize(
+    config.db.database,
+    config.db.user,
+    config.db.password,
+    config.db.options
+)
+  
 function processingData(stockID,data)
 {
     var sourceData = data
@@ -117,16 +125,22 @@ module.exports = {
     },
     async getPrice (req, res){
         try{
-        const findData = await Stock.findAll({
-            attributes: ['currentPrice','time'],
-            limit: 100
-        })
-        // Stock.query("SELECT currentPrice, time FROM 'stocks'",{ type: Sequelize.QueryTypes.SELECT})
+        // const findData = await Stock.findAll({
+        //     attributes: ['currentPrice','time'],
+        //     limit: 100
+        // })
+        // sequelize.query("SELECT currentPrice, time FROM mydb.stocks limit 10",{ type: Sequelize.QueryTypes.SELECT})
         // .then(function(stocks){
         //     console.log(stocks)
+        //     res.send(stocks)
         // })
-        console.log('findData:',findData)
-        res.send(findData)
+        await sequelize.query("SELECT FORMAT(AVG(currentPrice),2) as currentPrice, date,time FROM mydb.stocks where YEAR(date) = YEAR('2019-10-9') and MONTH(date) = MONTH('2019-10-9') and DAY(date) = DAY('2019-10-9')GROUP BY HOUR(time)")
+        .then(function(result){
+            console.log(result)
+            res.send(result)
+        })
+        // console.log('findData:',findData)
+        // res.send(findData)
         }catch(err){
             res.status(500).send({
                 error: err

@@ -134,9 +134,9 @@ export default {
         const priceData = await TestService.getPrice({
           data: this.data
         })
-        for (var i = 0; i < priceData.data.length; i++) {
-          let cPrice = parseFloat(priceData.data[i].currentPrice)
-          let cTime = priceData.data[i].time
+        for (var i = 0; i < priceData.data[0].length; i++) {
+          let cPrice = parseFloat(priceData.data[0][i].currentPrice)
+          let cTime = priceData.data[0][i].time
           console.log(cTime)
           console.log(cPrice)
           if (cPrice !== 0) {
