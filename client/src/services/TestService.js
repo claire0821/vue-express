@@ -6,5 +6,8 @@ export default {
   },
   getPrice (data) {
     return Api().post('getPrice', data)
+  },
+  getHourlyPrice (data) {
+    return Api().post('getHourlyPrice', data)
   }
 }

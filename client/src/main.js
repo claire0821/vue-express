@@ -11,13 +11,10 @@ import { faSpinner } from '@fortawesome/fontawesome-free-solid'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 
-// // 引入echarts且挂载在原型上
-// import echarts from 'echarts'
-// Vue.prototype.echarts = echarts
-
-// import VueECharts from 'vue-echarts'
-// import 'echarts/lib/chart/line'
-// Vue.component('v-chart', VueECharts)
+// 全局引入element-ui
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(ElementUI)
 
 Vue.use(mavonEditor)
 fontawesome.library.add(brands, faSpinner)

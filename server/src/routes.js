@@ -39,4 +39,7 @@ module.exports = (app) => {
 
     app.post('/getPrice',
     Test.getPrice)
+
+    app.post('/getHourlyPrice',
+    Test.getHourlyPrice)
 } 

@@ -15,7 +15,9 @@ const sequelize = new Sequelize(
     config.db.password,
     config.db.options
 )
-  
+
+let stockFlag = true // 是否获取股票信息
+
 function processingData(stockID,data)
 {
     var sourceData = data
@@ -93,12 +95,22 @@ const scheduleCronstyle = (stockID)=>{
     })
     var currentTime = new Date(Date.now())
     var currentHour = currentTime.getHours()
+    var currentMinute = currentTime.getMinutes()
     console.log('currentHour',currentHour)
-    if(currentHour >= 15 || currentHour < 9)
+    if(currentHour >= 15 || (currentHour < 9 && currentMinute > 30))
+    {
+        stockFlag = false
+    }
+    if(currentHour > 11 && currentHour < 13)
+    if(stockFlag == false)
     {
         obj.cancel()
-        console.log('下午三点到早上九点不进行循环事件')
+        console.log('下午三点到早上九点半不进行循环事件')
     }
+    // if(currentHour >= 11 || (currentHour < 9 && currentMinute > 30))
+    // {
+    //     stockFlag
+    // }
 
 } 
 
@@ -134,7 +146,36 @@ module.exports = {
         //     console.log(stocks)
         //     res.send(stocks)
         // })
-        await sequelize.query("SELECT FORMAT(AVG(currentPrice),2) as currentPrice, date,time FROM mydb.stocks where YEAR(date) = YEAR('2019-10-9') and MONTH(date) = MONTH('2019-10-9') and DAY(date) = DAY('2019-10-9')GROUP BY HOUR(time)")
+        var date = req.body.date
+        console.log(date)
+        // var sql = "SELECT FORMAT(AVG(currentPrice),2) as currentPrice, date,time FROM mydb.stocks where YEAR(date) = YEAR('${date}') and MONTH(date) = MONTH('${date}') and DAY(date) = DAY('${date}')GROUP BY HOUR(time)"
+        var sql = "SELECT FORMAT(AVG(currentPrice),2) as currentPrice, date,time FROM mydb.stocks where YEAR(date) = YEAR(:date) and MONTH(date) = MONTH(:date) and DAY(date) = DAY(:date)GROUP BY HOUR(time)"
+        await sequelize.query(sql,
+        { replacements: {date: [date]}, type: sequelize.QueryTypes.SELECT})
+        .then(function(result){
+            console.log(result)
+            res.send(result)
+        })
+        // console.log('findData:',findData)
+        // res.send(findData)
+        }catch(err){
+            res.status(500).send({
+                error: err
+            })
+            console.log('findall err',err)
+        }
+    },
+
+    async getHourlyPrice (req, res){
+        try{
+        var time = req.body.time
+        console.log(time)
+        var date = new Date(Date.now())
+        var currentDate = date.toLocaleDateString()
+        // var sql = "SELECT FORMAT(AVG(currentPrice),2) as currentPrice, date,time FROM mydb.stocks where YEAR(date) = YEAR('${date}') and MONTH(date) = MONTH('${date}') and DAY(date) = DAY('${date}')GROUP BY HOUR(time)"
+        var sql = "SELECT FORMAT(AVG(currentPrice),2) as currentPrice, date,time, FLOOR(MINUTE(time) / 15) AS fifteen FROM mydb.stocks where YEAR(date) = YEAR(:date) and MONTH(date) = MONTH(:date) and DAY(date) = DAY(:date) and time BETWEEN '09:30:00' and '11:30:00' or time BETWEEN '13:00:00' and '15:00:00' and time <= :time GROUP BY HOUR(time),fifteen"
+        await sequelize.query(sql,
+        { replacements: {date: [currentDate], time: time}, type: sequelize.QueryTypes.SELECT})
         .then(function(result){
             console.log(result)
             res.send(result)
