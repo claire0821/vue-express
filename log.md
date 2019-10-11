@@ -23,3 +23,13 @@ sequelize.query('SELECT * FROM projects WHERE status = :status ',
   console.log(projects)
 })
 
+FLOOR(MINUTE(time) / 15) AS fifteen按15分钟计算平均值
+
+## 2019-10-11
+### client
+增加el-form
+拟模糊搜索，从数据库返回匹配数据，或简单地输入股票代码传给服务器，测试代码是否正确。
+
+### server
+增加数据表包含股票的名称，id
+拟从股票代码范围尝试能否获得返回数据，有返回则确认，存入数据库

@@ -99,7 +99,7 @@ const scheduleCronstyle = (stockID)=>{
     console.log('currentHour',currentHour)
     if(currentHour >= 15 || (currentHour < 9 && currentMinute > 30))
     {
-        stockFlag = false
+        stockFlag = true
     }
     if(currentHour > 11 && currentHour < 13)
     if(stockFlag == false)
@@ -107,6 +107,7 @@ const scheduleCronstyle = (stockID)=>{
         obj.cancel()
         console.log('下午三点到早上九点半不进行循环事件')
     }
+    // obj.cancel()
     // if(currentHour >= 11 || (currentHour < 9 && currentMinute > 30))
     // {
     //     stockFlag

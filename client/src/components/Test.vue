@@ -1,14 +1,8 @@
 <template>
 <div class="container">
-    <h1>test</h1>
-    <label>try test</label>
     <button @click="getDataClick()">getdata</button>
-    <!-- <line-chart
-
-      :chartdata="chartdata"
-    /> -->
-    <div class="block">
-      <span></span>
+    <div class="choose">
+    <div class="block" align="left">
       <el-date-picker
       v-model="dateValue"
       type="date"
@@ -30,11 +24,36 @@
         @focus="setMaxTime()"
         @change="setHourlyChart()">
       </el-time-select>
+      <br>
+      <el-select
+      v-model="stockValue"
+      placeholder="请输入关键词"
+      multiple
+      filterable
+      remote
+      reserve-keyword
+      :remote-method="remoteMethod"
+      :loading="loading">
+        <el-option v-for="item in options" :key="item.value"
+        :label="item.label" :value="item.value">
+        </el-option>
+      </el-select>
+
     </div>
-      <!-- value-format="yyyyMMddHHmmss" -->
-     <div style="width:500px;height:500px" ref="chart"></div>
-  <canvas id="my-chart" width="500" height="300"></canvas>
-  <el-button type="primary"></el-button>
+    <div class="setStock" align="left">
+      <el-form :model="stockForm" :inline="true" ref="stockForm"> 
+        <el-form-item>
+          <el-input v-model="setStockID" placeholder="stock id"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm(stockForm)">save</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+
+    </div>
+
+    <canvas id="my-chart" width="500" height="300"></canvas>
     <button @click="fillData()">Randomize</button>
     <br>
     <button @click="stock()">stock</button>
@@ -89,7 +108,23 @@ export default {
         step: '00:15',
         end: '15:00'
       },
-      timeValue: ''
+      timeValue: '',
+
+      // select
+      options: [],
+      stockValue: [],
+      list: [],
+      loading: false,
+      states: [],
+
+      // form
+      setStockID: '',
+      rules: {
+        name: [
+          {required: true, message: '请输入', trigger: 'blur'}
+        ]
+      }
+
     }
   },
   mounted () {
@@ -169,6 +204,7 @@ export default {
         for (var i = 0; i < priceData.data.length; i++) {
           cPrice = parseFloat(priceData.data[i].currentPrice)
           cTime = priceData.data[i].time
+          cTime = cTime.substring(0, 5)
           console.log(cTime)
           console.log(cPrice)
           if (cPrice !== 0) {
@@ -259,6 +295,23 @@ export default {
       } catch (err) {
         console.log(err)
       }
+    },
+
+    // stockForm
+    submitForm (formName) {
+      // this.$refs[stockForm].validate((valid) => {
+      //   if (valid) {
+      //     alert('submit1')
+      //   } else {
+      //     console.log('error submit')
+      //     return false
+      //   }
+      // })
+    },
+
+    // select
+    remoteMethod () {
+
     }
   }
 }
