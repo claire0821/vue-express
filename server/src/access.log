@@ -1,0 +1,9 @@
+::1 - GET / HTTP/1.1 200 2 - 1.818 ms
+::1 - GET /favicon.ico HTTP/1.1 200 2 - 0.182 ms
+::1 - GET /static/css/static/fonts/MaterialIcons-Regular.570eb83.woff2 HTTP/1.1 200 2 - 0.509 ms
+::1 - GET /static/css/static/fonts/MaterialIcons-Regular.012cf6a.woff HTTP/1.1 200 2 - 0.243 ms
+::1 - GET /static/css/static/fonts/MaterialIcons-Regular.a37b0c0.ttf HTTP/1.1 200 2 - 0.136 ms
+::1 - GET /favicon.ico HTTP/1.1 304 - - 0.160 ms
+::1 - GET /favicon.ico HTTP/1.1 304 - - 0.235 ms
+::1 - GET /static/css/static/fonts/element-icons.535877f.woff HTTP/1.1 200 2 - 0.175 ms
+::1 - GET /static/css/static/fonts/element-icons.732389d.ttf HTTP/1.1 200 2 - 0.108 ms

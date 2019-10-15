@@ -319,7 +319,7 @@ export default {
           stockName: queryString
         })
         console.log(result.data.stocks)
-        for(let stock of result.data.stocks) {
+        for (let stock of result.data.stocks) {
           stock.value = stock.name
         }
         stocksList = result.data.stocks
