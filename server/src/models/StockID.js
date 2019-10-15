@@ -1,15 +1,11 @@
 module.exports = (sequelize, DataTypes) => {
-    const stockID = sequelize.define('stockID', {
+    const StockID = sequelize.define('StockID', {
       stockID: DataTypes.STRING,
-      name: {
-        type: DataTypes.STRING,
-        charset: 'utf8',
-      } ,
-      ID: DataTypes.STRING,
+      name: DataTypes.STRING,
     },{
         timestamps: false,
         collate: 'utf8_general_ci',
         charset: 'utf8'
     })
-    return stockID
+    return StockID
   }

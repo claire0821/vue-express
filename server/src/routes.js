@@ -4,6 +4,7 @@ const SongsController = require('../src/controller/SongsController')
 const MarkdownController = require('../src/controller/MarkdownController')
 const FileController = require('../src/controller/FileController')
 const Test = require('../src/controller/Test')
+const SetStockId = require('../src/controller/SetStockID')
 
 module.exports = (app) => {
     app.post('/register',
@@ -42,4 +43,10 @@ module.exports = (app) => {
 
     app.post('/getHourlyPrice',
     Test.getHourlyPrice)
+    
+    app.post('/setID',
+    SetStockId.setID)
+
+    app.post('/getID',
+    SetStockId.getID)
 } 

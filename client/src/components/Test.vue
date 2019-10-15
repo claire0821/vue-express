@@ -41,14 +41,17 @@
 
     </div>
     <div class="setStock" align="left">
-      <el-form :model="stockForm" :inline="true" ref="stockForm"> 
-        <el-form-item>
-          <el-input v-model="setStockID" placeholder="stock id"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm(stockForm)">save</el-button>
-        </el-form-item>
-      </el-form>
+      <el-autocomplete
+      popper-class="autocomplete"
+      v-model="ID_Name"
+      placeholder="输入名称或代码"
+      :fetch-suggestions="querySearchAsync"
+      @select="handleSelect"
+      clearable>
+      <template slot-scope="{item}">
+        <div>{{item.value}}  {{item.stockID}}</div>
+      </template>
+      </el-autocomplete>
     </div>
 
     </div>
@@ -57,6 +60,7 @@
     <button @click="fillData()">Randomize</button>
     <br>
     <button @click="stock()">stock</button>
+    <button @click="testID()">测试id</button>
 </div>
 </template>
 
@@ -117,13 +121,8 @@ export default {
       loading: false,
       states: [],
 
-      // form
-      setStockID: '',
-      rules: {
-        name: [
-          {required: true, message: '请输入', trigger: 'blur'}
-        ]
-      }
+      // autocomplete
+      ID_Name: ''
 
     }
   },
@@ -297,21 +296,37 @@ export default {
       }
     },
 
-    // stockForm
-    submitForm (formName) {
-      // this.$refs[stockForm].validate((valid) => {
-      //   if (valid) {
-      //     alert('submit1')
-      //   } else {
-      //     console.log('error submit')
-      //     return false
-      //   }
-      // })
+    async testID () {
+      try {
+        const response = await TestService.setID({
+        })
+        console.log(response)
+      } catch (err) {
+        console.log(err)
+      }
     },
 
-    // select
-    remoteMethod () {
+    // // select
+    // remoteMethod () {
 
+    // }
+    // autocomplete
+    async querySearchAsync (queryString, callback) {
+      try {
+        var stocksList = [{}]
+        console.log(queryString)
+        var result = await TestService.getID({
+          stockName: queryString
+        })
+        console.log(result.data.stocks)
+        for(let stock of result.data.stocks) {
+          stock.value = stock.name
+        }
+        stocksList = result.data.stocks
+        callback(stocksList)
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 }

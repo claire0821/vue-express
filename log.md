@@ -33,3 +33,16 @@ FLOOR(MINUTE(time) / 15) AS fifteen按15分钟计算平均值
 ### server
 增加数据表包含股票的名称，id
 拟从股票代码范围尝试能否获得返回数据，有返回则确认，存入数据库
+
+## 2019-10-15
+### 未解决
+for循环次数过大时server端内存不足
+ Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory
+### client
+el-autocomplete远程搜索，输入股票名字发送给server
+接到返回数据后需要设定value值，自定义建议的模版
+
+### server
+接收名字后开始Sequelize.Op模糊搜索，返回符合的数组给client
+由于内存不足，手动更改股票代码，判断是否为现有股票代码，存入数据库，目前只存有上海大部分股票代码
+

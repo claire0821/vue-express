@@ -9,5 +9,11 @@ export default {
   },
   getHourlyPrice (data) {
     return Api().post('getHourlyPrice', data)
+  },
+  setID () {
+    return Api().post('setID')
+  },
+  getID (searchID) {
+    return Api().post('getID', searchID)
   }
 }

@@ -18,6 +18,7 @@ const sequelize = new Sequelize(
 
 let stockFlag = true // 是否获取股票信息
 
+//股票信息字符串转换成数组
 function processingData(stockID,data)
 {
     var sourceData = data
@@ -107,7 +108,7 @@ const scheduleCronstyle = (stockID)=>{
         obj.cancel()
         console.log('下午三点到早上九点半不进行循环事件')
     }
-    // obj.cancel()
+    obj.cancel()
     // if(currentHour >= 11 || (currentHour < 9 && currentMinute > 30))
     // {
     //     stockFlag
