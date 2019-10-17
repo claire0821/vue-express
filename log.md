@@ -50,4 +50,13 @@ el-autocomplete远程搜索，输入股票名字发送给server
 config/index.js     
 assetsPublicPath: '/', 改  assetsPublicPath: './',
 npm run build
+<<<<<<< HEAD
 https://www.jianshu.com/p/aae355d692a1
+=======
+https://www.jianshu.com/p/aae355d692a1
+
+## 2019-10-17
+添加video-js.swf，chrome运行flash控件
+vue-video-player版本为4.0.6还有加上videojs-flash
+ffmpeg
+>>>>>>> 利用vue-video-player和videojs-flash增加rtmp实时直播
