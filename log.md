@@ -50,13 +50,19 @@ el-autocomplete远程搜索，输入股票名字发送给server
 config/index.js     
 assetsPublicPath: '/', 改  assetsPublicPath: './',
 npm run build
-<<<<<<< HEAD
-https://www.jianshu.com/p/aae355d692a1
-=======
 https://www.jianshu.com/p/aae355d692a1
 
 ## 2019-10-17
 添加video-js.swf，chrome运行flash控件
 vue-video-player版本为4.0.6还有加上videojs-flash
-ffmpeg
->>>>>>> 利用vue-video-player和videojs-flash增加rtmp实时直播
+### 安装nginx FFmpeg
+解压need里的文件
+> cd nginx-1.7.11.3-Gryphon    //进入nginx的目录
+> nginx.exe -c conf\nginx-win-rtmp.conf   //运行rtmp配置文件 
+可以更改nginx-win-rtmp.conf sever的端口
+浏览器输入localhost:7999
+
+将FFmpeg下bin目录添加到环境变量
+ffmpeg -help
+ffmpeg -i "rtsp://192.168.1.94:554/majorAV" -f flv -r 25-s 640x480 -an "rtmp://192.168.1.221:1935/live/home"
+将video-player的src改为rtmp://192.168.1.221:1935/live/home可以得到实时视频流

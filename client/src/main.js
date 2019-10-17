@@ -11,15 +11,12 @@ import { faSpinner } from '@fortawesome/fontawesome-free-solid'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 
-<<<<<<< HEAD
-=======
 import VueVideoPlayer from 'vue-video-player'
 import 'video.js/dist/video-js.css'
 import 'vue-video-player/src/custom-theme.css'
 import 'videojs-flash'
 import 'videojs-contrib-hls/dist/videojs-contrib-hls'
 
->>>>>>> 利用vue-video-player和videojs-flash增加rtmp实时直播
 // 全局引入element-ui
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -31,10 +28,7 @@ Vue.use(Vuetify)
 sync(store, router)
 Vue.config.productionTip = false
 
-<<<<<<< HEAD
-=======
 Vue.use(VueVideoPlayer)
->>>>>>> 利用vue-video-player和videojs-flash增加rtmp实时直播
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
